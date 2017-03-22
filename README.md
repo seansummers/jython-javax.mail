@@ -1,0 +1,3 @@
+Jython javax.mail Example
+=========================
+
