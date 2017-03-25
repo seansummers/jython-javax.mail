@@ -1,7 +1,8 @@
 import contextlib
 
-import java.util
 import javax.mail
+
+import util
 
 
 class JavaxMailAuthenticator(javax.mail.Authenticator):
@@ -32,13 +33,6 @@ def sendmail(subject, addr_to, text, properties, creds=None):
         transport.sendMessage(message, mail_to)
 
 
-def load_properties(property_filename):
-    properties = java.util.Properties()
-    with open(property_filename, 'r') as property_file:
-        properties.load(property_file)
-    return properties
-
-
 if __name__ == '__main__':
     content = '''
 This
@@ -47,11 +41,11 @@ of the message.
 
 That I am testing.
 '''
-    creds = load_properties('secret-cred.properties')
+    creds = util.load_properties('secret-cred.properties')
     smtp_auth = (creds.getProperty('username'), creds.getProperty('password'))
     mail_to = creds.getProperty('mailto')
 
-    properties = load_properties('mail.properties')
+    properties = util.load_properties('mail.properties')
     properties['mail.user'] = creds.getProperty('username')
     properties['mail.from'] = creds.getProperty('username')
 
